@@ -40,6 +40,23 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+npm/
+git/
+
+# Eval artifacts
+evals/.work/
+evals/results/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Local pi state
+auth.json
+models-store.json
+sessions/
+trust.json
 
 # Snowpack dependency directory (https://snowpack.dev/)
 web_modules/
