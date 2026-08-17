@@ -25,7 +25,7 @@ Credentials remain local in the ignored `auth.json`. Authenticate this config by
 
 ## AGENTS.md evals
 
-The eval runner starts pi in isolated fixture directories beneath this repository, so pi discovers the repository's `AGENTS.md`. It disables optional resources to keep the instructions under test isolated. The cases cover branch naming, utility reuse, general and structured declaration comment style, and commit subjects.
+The pytest suite starts pi in isolated fixture directories beneath this repository, so pi discovers the repository's `AGENTS.md`. It disables optional resources to keep the instructions under test isolated. Cases are split into workflow, implementation, and structured-comment test modules.
 
 The Python environment is managed by uv from `requirements.txt`. Run all evals through Make:
 
@@ -33,10 +33,10 @@ The Python environment is managed by uv from `requirements.txt`. Run all evals t
 make evals
 ```
 
-Run selected evals with `EVALS`:
+Pass pytest arguments with `PYTEST_ARGS` to select evals or control output:
 
 ```sh
-make evals EVALS='branch-naming comment-style'
+make evals PYTEST_ARGS='-k structured_comments -vv'
 ```
 
 Use a particular model or thinking level by passing pi arguments through `PI_EVAL_ARGS`:
@@ -45,4 +45,4 @@ Use a particular model or thinking level by passing pi arguments through `PI_EVA
 PI_EVAL_ARGS='--model openai-codex/gpt-5.3-codex --thinking low' make evals
 ```
 
-Runs make model API calls using this repository's pi configuration and its ignored `auth.json`. Set `PI_EVAL_CONFIG_DIR` to use another authenticated config directory. Outputs are written to `evals/results/`, and generated fixtures remain in `evals/.work/` for debugging. Both directories are ignored by git.
+Runs make model API calls using this repository as `PI_CODING_AGENT_DIR`, including its ignored `auth.json`. Outputs are written to `evals/results/`, and generated fixtures remain in `evals/.work/` for debugging. Both directories are ignored by git.
