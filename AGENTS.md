@@ -8,8 +8,8 @@ Datadog
 
 Branch Naming
 - Format: tyler.finethy/DEBUG-XXXX
-- If no issue number is provided, ask for one.
-- If none exists, use: tyler.finethy/<short-description>
+- If no issue number is provided, do not create the branch yet. Ask for one first.
+- Only after the user confirms no issue exists, use: tyler.finethy/<short-description>
 
 Code Conventions
 - DO NOT WRITE CODE COMMENTS WHEN THE CODE IS SELF-EXPLANATORY.
