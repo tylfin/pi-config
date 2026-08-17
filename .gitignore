@@ -52,6 +52,9 @@ evals/results/
 __pycache__/
 *.pyc
 
+# Local binaries
+bin/
+
 # Local pi state
 auth.json
 models-store.json
