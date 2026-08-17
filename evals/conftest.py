@@ -1,5 +1,4 @@
 import pytest
-
 from pi_runner import PiRunner
 
 

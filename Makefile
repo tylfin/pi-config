@@ -1,10 +1,18 @@
 UV ?= uv
 PYTEST_ARGS ?=
 
-.PHONY: evals login
+.PHONY: evals lint typecheck check login
 
 evals:
-	$(UV) run --quiet --no-project --with-requirements requirements.txt pytest -q evals $(PYTEST_ARGS)
+	$(UV) run pytest -q evals $(PYTEST_ARGS)
+
+lint:
+	$(UV) run ruff check evals
+
+typecheck:
+	$(UV) run ty check evals
+
+check: lint typecheck evals
 
 login:
 	PI_CODING_AGENT_DIR=$(CURDIR) pi

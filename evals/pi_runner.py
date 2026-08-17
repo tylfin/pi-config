@@ -1,9 +1,9 @@
 import json
 import os
-from pathlib import Path
 import shlex
 import shutil
 import subprocess
+from pathlib import Path
 from typing import Callable
 
 import pytest
@@ -100,15 +100,17 @@ class PiRunner:
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
+        stdin, stdout = proc.stdin, proc.stdout
+        assert stdin is not None and stdout is not None
 
         def send(payload):
-            proc.stdin.write(json.dumps(payload) + "\n")
-            proc.stdin.flush()
+            stdin.write(json.dumps(payload) + "\n")
+            stdin.flush()
 
         events: list[dict] = []
         try:
             send({"type": "prompt", "message": prompt})
-            for line in proc.stdout:
+            for line in stdout:
                 line = line.strip()
                 if not line:
                     continue
@@ -131,7 +133,7 @@ class PiRunner:
         finally:
             try:
                 send({"type": "abort"})
-                proc.stdin.close()
+                stdin.close()
             except (BrokenPipeError, ValueError, OSError):
                 pass
             try:

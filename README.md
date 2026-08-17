@@ -27,10 +27,17 @@ Credentials remain local in the ignored `auth.json`. Authenticate this config by
 
 The pytest suite starts pi in isolated fixture directories beneath this repository, so pi discovers the repository's `AGENTS.md`. It disables optional resources to keep the instructions under test isolated. Cases are split into workflow, implementation, and structured-comment test modules.
 
-The Python environment is managed by uv from `requirements.txt`. Run all evals through Make:
+The Python environment is managed by uv from `pyproject.toml`. Run all evals through Make:
 
 ```sh
 make evals
+```
+
+Lint with ruff and type-check with ty, or run everything with `make check`:
+
+```sh
+make lint
+make typecheck
 ```
 
 Pass pytest arguments with `PYTEST_ARGS` to select evals or control output:
