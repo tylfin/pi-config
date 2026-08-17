@@ -47,7 +47,7 @@
     "toolSuccessBg": "toolSuccessBg",
     "toolErrorBg": "toolErrorBg",
     "toolTitle": "text",
-    "toolOutput": "gray",
+    "toolOutput": "text",
 
     "mdHeading": "amber",
     "mdLink": "blue",
