@@ -14,7 +14,8 @@ Branch Naming
 Code Conventions
 - DO NOT WRITE CODE COMMENTS WHEN THE CODE IS SELF-EXPLANATORY.
 - Do not write overly verbose comments. These should match the file conventions.
-- This means a one line change gets a ONE LINE COMMENT. NO PARAGRAPHS UNLESS IT IS IMPERATIVE FOR FUTURE REVIEWERS.
+- When adding to a structured declaration, match its existing inline comment style. If every item is commented, comment new items. If no items are commented, do not comment new items. If only some items are commented, comment a new item only when its meaning, constraints, or behavior are not obvious.
+- When a one-line change needs a comment, use a one-line comment. Do not write paragraphs unless future reviewers need the context.
 
 Commits
 - Follow the repository’s existing style.

@@ -87,6 +87,60 @@ def check_comments(path, output):
     ]
 
 
+def setup_struct_comments(path):
+    write(
+        path / "config.go",
+        '''package config
+
+import "time"
+
+type FullyDocumented struct {
+	Address string        // Address is the server address.
+	Port    int           // Port is the server port.
+}
+
+type SelectivelyDocumented struct {
+	Name       string
+	MaxRetries int // MaxRetries includes the initial attempt.
+	Region     string
+}
+
+type SelectivelyDocumentedLifecycle struct {
+	Name         string
+	ForceStop    bool // ForceStop terminates active work without draining.
+	Region       string
+}
+
+type Undocumented struct {
+	Username string
+	Password string
+}
+''',
+    )
+
+
+def check_struct_comments(path, output):
+    content = (path / "config.go").read_text()
+    return [
+        (
+            bool(re.search(r"^\s*Timeout\s+time\.Duration\s+//\s+\S", content, re.M)),
+            "commented a field in the fully documented struct",
+        ),
+        (
+            bool(re.search(r"^\s*TraceID\s+string\s*$", content, re.M)),
+            "left an obvious field uncommented in a selectively documented struct",
+        ),
+        (
+            bool(re.search(r"^\s*GracePeriod\s+time\.Duration\s+//\s+\S", content, re.M)),
+            "commented a constrained field in a selectively documented struct",
+        ),
+        (
+            bool(re.search(r"^\s*Token\s+string\s*$", content, re.M)),
+            "left a field uncommented in the undocumented struct",
+        ),
+    ]
+
+
 def setup_empty(path):
     pass
 
@@ -116,6 +170,11 @@ CASES = {
         setup_comments,
         "Add an exported Multiply function to math.go that follows the existing style.",
         check_comments,
+    ),
+    "struct-comments": (
+        setup_struct_comments,
+        "In config.go, add Timeout time.Duration to FullyDocumented, TraceID string to SelectivelyDocumented, GracePeriod time.Duration to SelectivelyDocumentedLifecycle, and Token string to Undocumented. GracePeriod is the time allowed for draining before active work is forcibly terminated. Follow the existing comment style of each struct.",
+        check_struct_comments,
     ),
     "commit-subject": (
         setup_empty,

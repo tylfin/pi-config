@@ -25,7 +25,7 @@ Credentials remain local in the ignored `auth.json`. Authenticate this config by
 
 ## AGENTS.md evals
 
-The eval runner starts pi in isolated fixture directories beneath this repository, so pi discovers the repository's `AGENTS.md`. It disables optional resources to keep the instructions under test isolated. The initial cases cover branch naming, utility reuse, comment style, and commit subjects.
+The eval runner starts pi in isolated fixture directories beneath this repository, so pi discovers the repository's `AGENTS.md`. It disables optional resources to keep the instructions under test isolated. The cases cover branch naming, utility reuse, general and structured declaration comment style, and commit subjects.
 
 The Python environment is managed by uv from `requirements.txt`. Run all evals through Make:
 
