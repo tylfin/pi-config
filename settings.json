@@ -2,7 +2,7 @@
   "defaultProvider": "anthropic",
   "defaultModel": "claude-opus-4-8",
   "defaultThinkingLevel": "medium",
-  "theme": "positron",
+  "theme": "custom",
   "packages": [
     "npm:pi-pr-review",
     "npm:@juicesharp/rpiv-ask-user-question"
