@@ -1,3 +1,4 @@
+import json
 import os
 from pathlib import Path
 import shlex
@@ -60,3 +61,83 @@ class PiRunner:
             pytest.fail(message, pytrace=False)
 
         return path, completed.stdout.strip()
+
+    def run_rpc(
+        self,
+        name: str,
+        prompt: str,
+        setup: Callable[[Path], None] | None = None,
+        answer: Callable[[dict], dict] | None = None,
+    ) -> tuple[Path, list[dict]]:
+        """Drive pi over RPC so interactive tools such as ask_user_question run.
+
+        Dialog requests are resolved by ``answer`` (defaulting to cancellation),
+        and every streamed event is returned for assertions.
+        """
+        path = WORK / name
+        shutil.rmtree(path, ignore_errors=True)
+        path.mkdir(parents=True)
+        if setup:
+            setup(path)
+
+        command = [
+            "pi",
+            "--mode",
+            "rpc",
+            "--no-session",
+            "--approve",
+            "--no-skills",
+            "--no-prompt-templates",
+            "--no-themes",
+            *self.extra_args,
+        ]
+        proc = subprocess.Popen(
+            command,
+            cwd=path,
+            env=self.env,
+            text=True,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+
+        def send(payload):
+            proc.stdin.write(json.dumps(payload) + "\n")
+            proc.stdin.flush()
+
+        events: list[dict] = []
+        try:
+            send({"type": "prompt", "message": prompt})
+            for line in proc.stdout:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    event = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                events.append(event)
+                if event.get("type") == "extension_ui_request" and event.get("method") in (
+                    "select",
+                    "input",
+                    "confirm",
+                    "editor",
+                ):
+                    response = {"type": "extension_ui_response", "id": event["id"]}
+                    response.update(answer(event) if answer else {"cancelled": True})
+                    send(response)
+                if event.get("type") == "agent_settled":
+                    break
+        finally:
+            try:
+                send({"type": "abort"})
+                proc.stdin.close()
+            except (BrokenPipeError, ValueError, OSError):
+                pass
+            try:
+                proc.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                proc.kill()
+
+        (RESULTS / f"{name}.txt").write_text("\n".join(json.dumps(event) for event in events))
+        return path, events

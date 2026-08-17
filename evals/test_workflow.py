@@ -1,3 +1,4 @@
+import json
 import re
 import subprocess
 
@@ -16,15 +17,23 @@ def setup_repository(path):
 
 
 def test_branch_naming(pi_runner):
-    path, output = pi_runner.run(
+    path, events = pi_runner.run_rpc(
         "branch-naming",
         "Create a git branch for improving retry logging. Do not change any files.",
         setup_repository,
     )
 
+    questions = [
+        event
+        for event in events
+        if event.get("type") == "tool_execution_start"
+        and event.get("toolName") == "ask_user_question"
+    ]
+    assert questions, "expected the agent to ask via the ask_user_question tool"
+    assert re.search(r"issue|ticket|DEBUG-", json.dumps(questions[0]["args"]), re.I)
+
     branch = run(["git", "branch", "--show-current"], path).stdout.strip()
     assert branch == "main"
-    assert re.search(r"issue|ticket|DEBUG-", output, re.I)
 
 
 def test_commit_subject(pi_runner):
