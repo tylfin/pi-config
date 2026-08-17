@@ -1,5 +1,7 @@
 # pi-config
 
+[![Checks](https://github.com/tylfin/pi-config/actions/workflows/checks.yml/badge.svg)](https://github.com/tylfin/pi-config/actions/workflows/checks.yml)
+
 Version-controlled pi configuration and behavioral evals for `AGENTS.md`.
 
 ## Packages
