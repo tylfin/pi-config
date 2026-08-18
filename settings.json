@@ -5,7 +5,10 @@
   "theme": "custom",
   "packages": [
     "npm:pi-pr-review",
-    "npm:@juicesharp/rpiv-ask-user-question"
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:pi-subagents",
+    "npm:pi-mcp-adapter",
+    "npm:pi-powerline-footer"
   ],
   "lastChangelogVersion": "0.84.2",
   "warnings": {
