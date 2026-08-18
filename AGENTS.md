@@ -29,6 +29,7 @@ Commits
 - Create a new commit for independent or net-new functionality. If the commit to amend is not the current branch tip, ask before rebasing or otherwise rewriting multiple commits.
 
 Pull Requests and Issues
+- DO NOT WRITE OR POST GITHUB MESSAGES WITHOUT THE USER'S EXPLICIT APPROVAL.
 - ALWAYS read an existing PR body before updating it!
 - Pull requests descriptions should ALWAYS be holistic and cover only the diffs from main/preprod/etc.
 - Do not leak discussions from chat, base PR content only on what a reviewer cares about.
