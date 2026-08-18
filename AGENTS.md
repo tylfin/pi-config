@@ -25,12 +25,17 @@ Commits
 - Describe the current diff NOT decisions/changes along the way.
 - Write release notes for a user-facing audience, not an engineering-internal one. Avoid deep technical jargon.
 - Commit messages should be holistic and cover all changes in the commit, not narrowly scoped to one file or aspect.
+- Prefer amending the commit that introduced the work when follow-up changes only fix or refine existing PR work and add no net-new functionality. Do not create a separate fix commit in that case.
+- Create a new commit for independent or net-new functionality. If the commit to amend is not the current branch tip, ask before rebasing or otherwise rewriting multiple commits.
 
-Pull Requests
+Pull Requests and Issues
 - ALWAYS read an existing PR body before updating it!
 - Pull requests descriptions should ALWAYS be holistic and cover only the diffs from main/preprod/etc.
 - Do not leak discussions from chat, base PR content only on what a reviewer cares about.
 - No "Generated with" line
+- Treat requests to review PR feedback or reported issues as review-only first. Inspect the feedback and relevant code, assess whether each item is valid and actionable, and present the findings and proposed response before making changes.
+- Do not edit files, apply fixes, commit, push, or post responses during the review phase.
+- After presenting the review, use `ask_user_question` to ask whether to proceed with the proposed changes. Make changes only after explicit confirmation. If nothing is actionable, report that and do not ask to implement changes.
 
 Refactoring
 - Prefer existing utilities over reimplementing logic: e.g., `isGovcloud()` for GovCloud checks, `fibonacci_backoff_with_jitter` for retries, DRUIDS `toggleSwitch` helper in tests.
