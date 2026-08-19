@@ -29,6 +29,22 @@ func Add(a, b int) int {
     )
 
 
+def setup_git_metadata(path):
+    (path / "metadata.ts").write_text(
+        '''export function shouldInferCommit(
+  finalRepoUrl: string,
+  uniqueGitReposIds: string[],
+  commitSha: string,
+): boolean {
+  // Heartbeats and spans can report a repository without a commit sha. Let
+  // SCI infer one instead, which falls back to the repo's latest commit.
+  const hasRepo = finalRepoUrl.length > 0 || uniqueGitReposIds.length > 0;
+  return hasRepo && commitSha.length === 0;
+}
+'''
+    )
+
+
 def test_reuses_existing_helper(pi_runner):
     path, _ = pi_runner.run(
         "reuse-helper",
@@ -51,3 +67,15 @@ def test_avoids_self_explanatory_comment(pi_runner):
     content = (path / "math.go").read_text()
     assert re.search(r"func Multiply\(a, b int\) int", content)
     assert "//" not in content
+
+
+def test_preserves_accurate_why_comment(pi_runner):
+    path, _ = pi_runner.run(
+        "preserve-comment",
+        "In metadata.ts, extract the repository presence check into a hasRepository helper and use it inside shouldInferCommit. Preserve behavior and follow the existing code conventions.",
+        setup_git_metadata,
+    )
+
+    content = (path / "metadata.ts").read_text()
+    assert "Heartbeats and spans can report a repository without a commit sha" in content
+    assert "SCI infer one instead" in content

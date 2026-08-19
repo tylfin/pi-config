@@ -12,8 +12,10 @@ Branch Naming
 - Only after the user confirms no issue exists, use: tyler.finethy/<short-description>
 
 Code Conventions
-- DO NOT WRITE CODE COMMENTS WHEN THE CODE IS SELF-EXPLANATORY.
-- Do not write overly verbose comments. These should match the file conventions.
+- Preserve existing comments when they remain accurate. Do not delete a comment merely because the code appears self-explanatory.
+- When behavior changes, update affected comments so they remain accurate. Remove a comment only when it no longer applies and cannot be usefully updated.
+- Add new comments only when they explain non-obvious intent, constraints, tradeoffs, or why the code behaves as it does. Do not add comments that merely restate self-explanatory code.
+- Keep comments concise and match the file's conventions.
 - When adding to a structured declaration, match its existing inline comment style. If every item is commented, comment new items. If no items are commented, do not comment new items. If only some items are commented, comment a new item only when its meaning, constraints, or behavior are not obvious.
 - When a one-line change needs a comment, use a one-line comment. Do not write paragraphs unless future reviewers need the context.
 
