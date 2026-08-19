@@ -57,7 +57,11 @@ bin/
 
 # Local pi state
 auth.json
+datadog/datadog-oauth/
+mcp-cache.json
+missions/
 models-store.json
+run-history.jsonl
 sessions/
 trust.json
 
