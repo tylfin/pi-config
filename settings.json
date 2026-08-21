@@ -3,6 +3,11 @@
   "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "high",
   "theme": "custom",
+  "powerline": {
+    "git": {
+      "polling": "branch"
+    }
+  },
   "packages": [
     "npm:pi-pr-review",
     "npm:@juicesharp/rpiv-ask-user-question",
