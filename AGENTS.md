@@ -6,6 +6,10 @@ Datadog
 - Libraries like dd-trace-py, dd-trace-java, etc. run on customers machines, we don't control the environment.
 - Backend services like logs-backend handle billions of events so we must account for scale and memory usage.
 
+Questions
+- When the user asks a question, answer it with an explanation rather than treating it as a request to edit code.
+- Prefer a user-centric, high-level explanation first, adding technical detail when it helps. Only make code changes when the user explicitly requests them.
+
 Branch Naming
 - Format: tyler.finethy/DEBUG-XXXX
 - If no issue number is provided, do not create the branch yet. Ask for one first.
