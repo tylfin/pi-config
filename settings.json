@@ -5,18 +5,22 @@
   "theme": "custom",
   "powerline": {
     "git": {
-      "polling": "branch"
+      "polling": "off"
     }
   },
   "packages": [
-    "npm:pi-pr-review",
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:pi-subagents",
     "npm:pi-mcp-adapter",
     "npm:pi-powerline-footer",
-    "npm:@datadog/pi-plugin"
+    "npm:@datadog/pi-plugin",
+    "../../../../../dd/datadog-pi-packages/packages/compaction-continue",
+    "../../../../../dd/datadog-pi-packages/packages/refresh-models",
+    "../../../../../dd/datadog-pi-packages/packages/research-web",
+    "../../../../../dd/datadog-pi-packages/packages/session-cost",
+    "npm:@getpipher/vision"
   ],
-  "lastChangelogVersion": "0.84.2",
+  "lastChangelogVersion": "0.85.1",
   "warnings": {
     "anthropicExtraUsage": false
   }
