@@ -1,6 +1,6 @@
 {
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.6-sol",
+  "defaultProvider": "ai-gw-anthropic-1m",
+  "defaultModel": "anthropic/claude-opus-5-5",
   "defaultThinkingLevel": "high",
   "theme": "custom",
   "powerline": {
@@ -20,7 +20,7 @@
     "../../../../../dd/datadog-pi-packages/packages/session-cost",
     "npm:@getpipher/vision"
   ],
-  "lastChangelogVersion": "0.85.1",
+  "lastChangelogVersion": "0.99.1",
   "warnings": {
     "anthropicExtraUsage": false
   }

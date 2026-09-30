@@ -1,4 +1,4 @@
 {
   "domain": "mcp.datadoghq.com",
-  "toolsets": "core,visualizations"
+  "toolsets": "all"
 }
