@@ -58,6 +58,7 @@ bin/
 # Local pi state
 auth.json
 datadog/datadog-oauth/
+datadog/datadog.json
 extensions/.cmux-session.lock
 mcp-cache.json
 mcp-onboarding.json
