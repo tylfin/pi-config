@@ -61,9 +61,11 @@ datadog/datadog-oauth/
 extensions/.cmux-session.lock
 mcp-cache.json
 mcp-onboarding.json
+mcp-project-approvals.json
 missions/
 models.json
 models-store.json
+pi-subagents/
 run-history.jsonl
 sessions/
 trust.json
